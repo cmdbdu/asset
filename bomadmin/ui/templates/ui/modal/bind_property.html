@@ -1,0 +1,31 @@
+<div id="bind_property" class="modal fade">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h3 class="modal-title" id="myModalLabel">物品绑定</h3>
+      </div>
+      <div class="modal-body">
+        <div>
+          <input type="text" name='seach_value' id='searchword' placeholder="物品编号">
+          <input type='button' class='btn btn-info' onclick="search_property()" id='btn-search' value='搜索' />
+        </div>
+      <table class="table table-striped" id="bind_property_table">
+      {% for i in propertys %}
+       <tr>
+        <td>{{i}}</td>
+        <td>{{i.get_property_status_display}}</td>
+        <td>
+            {% ifequal i.property_status 'stock'%}
+                <button type="button" class="btn btn-primary" data-prid=""data-bid="{{business.id}}" data-pid="{{i.id}}" id="btn_bind_property">绑定</button>
+            {% else %}
+                <button disabled="disabled" type="button" class="btn btn-primary ">项目中</button>
+            {% endifequal %}
+        </td>
+       </tr>
+      {% endfor %}
+      </table>
+      </div>
+    </div>
+  </div>
+</div>

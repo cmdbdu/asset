@@ -1,0 +1,27 @@
+<div id="add_asset" class="modal fade">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h3 class="modal-title" id="myModalLabel">添加固资</h3>
+      </div>
+      <div class="modal-body">
+        <form role="form" action="" method="post">{% csrf_token %}
+          {% for field in asset_form %}
+            <div class="form-group">
+              <label class="col-sm-3 control-label">{{ field.label_tag|striptags }}</label>
+              <div class="clo-sm-10">
+                {{field}}
+              </div>
+            </div>
+          {% endfor %}
+          <div class="modal-footer">
+            <button class="btn" data-dismiss="modal" aria-hidden="true">取消</button>
+            <button class="btn btn-primary" type="submit">添加</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+

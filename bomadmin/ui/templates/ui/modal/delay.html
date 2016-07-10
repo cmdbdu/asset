@@ -1,0 +1,24 @@
+<div id="delay" class="modal fade">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h3 class="modal-title" id="myModalLabel">产品延期</h3>
+      </div>
+      <div class="modal-body">
+          {% for field in delayform %}
+            <div class="form-group">
+              <label class="col-sm-3 control-label">{{ field.label_tag|striptags }}</label>
+              <div class="clo-sm-10">
+                {{field}}
+              </div>
+            </div>
+          {% endfor %}
+          <div class="modal-footer">
+            <button class="btn" data-dismiss="modal" aria-hidden="true">取消</button>
+            <button class="btn btn-primary btn_create_delay"data-bid="" data-prid="">创建延期</button>
+          </div>
+      </div>
+    </div>
+  </div>
+</div>
