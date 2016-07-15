@@ -8,44 +8,24 @@
     <table class='table table-hover'>
       <thead>
           {% block content-header %}
-          <th>固资名称</th>
-          <th>采购时间</th>
           <th>编码</th>
           <th>状态</th>
-          <th>使用人</th>
-          <th>固资编辑</th>
+          <th>操作</th>
           {% endblock %}
         </tr>
       </thead>
       <tbody>
         {% block content-body %}
-            {% for items in all_asset %}
+            {% for items in devices %}
                 <tr style="background:#BDFFF1" >
                   <td>
-                    {{ items.asset_type }}
+                    {{ items.device_sn }}
                   </td>
                   <td>
-                    <span style="color:#F00">
-                      {{ items.acquisition_date|date:"Y/m/d" }}
-                    </span><br>
+                    {{ items.device_boms.all }}
                   </td>
                   <td>
-                    {{ items.serial_number }}
-                  </td>
-                  <td>
-                    {% if items.asset_status == 'active' %}
-                    库存
-                    {% elif items.asset_status == 'inactive' %}
-                    使用中
-                    {% elif item.asset_status == 'recycled' %}
-                    报废
-                    {% endif %}
-                  </td>
-                  <td>
-                    {{ items.asset_user }}
-                  </td>
-                  <td>
-                    <a href="info/{{items.id}}">操作</a>
+                    <span class="glyphicon glyphicon-wrench"></span>
                   </td>
                 </tr>
             {% endfor %}

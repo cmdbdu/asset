@@ -1,10 +1,8 @@
 $(document).ready(function(){
-  $('.col-sm-10').click(function(e){
-    var el = e.target;
-    el.removeAttribute("disabled")
+  $('.glyphicon').click(function(e){
+    var input = $('#add_device .form-group:last').clone().val('')
+    $("#add_device .form-group:last").after(
+      input
+      )
   });
 });
-function change_to_input(arg){
-  alert('1');
-  alert(arg.attr);
-}

@@ -4,7 +4,7 @@
     <head>
       <meta charset='UTF-8'>
       <link rel='stylesheet' href='{{ STATIC_URL }}bootstrap/css/bootstrap.min.css'/>
-      <link rel='stylesheet' href='{{ STATIC_URL }}css/itsys.css'/>
+      <link rel='stylesheet' href='{{ STATIC_URL }}css/asset.css'/>
       <script src="{{ STATIC_URL }}js/jquery-1.9.1.js"></script>
       <script src="{{ STATIC_URL }}bootstrap/js/bootstrap.min.js"></script>
       <script src="{{ STATIC_URL }}My97DatePicker/WdatePicker.js"></script>
@@ -34,15 +34,15 @@
                <li>
                  <a href="/ui/stock/">库存</a>
                </li>
-               <!--
                <li class="dropdown ">
-                 <a class="dropdown " role="button" href="#" data-toggle="dropdown">物品详细<b class="caret"></b></a>
+                 <a class="dropdown " role="button" href="#" data-toggle="dropdown">新建<b class="caret"></b></a>
                    <ul class="dropdown-menu " role="menu" aria-labelledby="dropdownMenu1">
-                     <li class="dropdown " role="presentation"><a  href="/business/propertyinfo">物品概况</a></li>
-                     <li class="dropdown " role="presentation"><a  href="business/recovery">物品回收</a></li>
-                     <li class="dropdown " role="presentation"><a  href="#" data-toggle="modal" data-target="#add_property">添加物品</a></li>
+                     <li class="dropdown " role="presentation"><a  href="#" data-toggle="modal" data-target="#add_asset">添加配件</a></li>
+                     <li class="dropdown " role="presentation"><a  href="#" data-toggle="modal" data-target="#add_device">添加设备</a></li>
+                     <li class="dropdown " role="presentation"><a  href="#" data-toggle="modal" data-target="#add_user">添加用户</a></li>
                    </ul>
                </li>
+               <!--
                <li>
                  <a href="#">使用手册</a>
                </li>
@@ -72,12 +72,12 @@
       {% block contents %}
         <div class='container'>
           {% block search_business%}
-            <div class="business-search">
+            <!--<div class="business-search">
               <input type="text" name='seach_value' id='searchword' placeholder="固资">
               <input type='button' class='btn btn-info' onclick="search_business()" id='btn-search' value='搜索' />
-              <button type='button' class='btn btn-primary pull-right' data-toggle="modal" data-target="#add_asset">新建固资</button>
+              <button type='button' class='btn btn-primary pull-right' data-toggle="modal" data-target="#add_asset">添加配件</button>
             </div>
-            <!--{%
+            {%
             <div class='btn-group search-business'>
               <button class='btn btn-info'>未开始</button>
               <button class='btn btn-info'>进行中</button>
@@ -110,6 +110,8 @@
         </div>
       {% endblock %}
       {% include 'ui/modal/new_asset.html' %}
+      {% include 'ui/modal/new_device.html' %}
+      {% include 'ui/modal/new_user.html' %}
       <!--
       {% include 'ui/modal/new_project.html' %}
       {% include 'ui/modal/bind_property.html' %}

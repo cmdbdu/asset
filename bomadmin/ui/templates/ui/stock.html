@@ -1,0 +1,25 @@
+{% extends 'ui/base.html' %}
+{% block title %}
+    库存
+{% endblock %}
+{% block contents %}
+    {%  block search_business %}
+    {% endblock %}
+    {% block business_show %}
+    <div class="container">
+        <div id="stock" class="row">
+        {% for key,values in boms_count.items %}
+          <div class="col-xs-6 col-md-3">
+            <h2>{{ key }}</h2>
+            {% for ky, va  in values.items %}
+            <div class="detail">
+              <p>{{ ky}}</p>
+              <p>{{ va }}</p>
+            </div>
+            {% endfor %}
+          </div>
+        {% endfor %}
+        </div>
+    </div>
+    {% endblock %}
+{% endblock %}

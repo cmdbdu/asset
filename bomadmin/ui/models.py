@@ -33,6 +33,13 @@ class Bom(models.Model):
             ('ser',u"服务器"),
             ('disk',u"硬盘"),
             )
+    BOM_CHOICES_STATE = (
+            ('store', u'库存'),
+            ('inuse', u'使用中'),
+            )
+    bom_status = models.CharField(max_length=20,verbose_name=u'状态',
+                                choices=BOM_CHOICES_STATE,
+                                default='store')
     bom_name = models.CharField(max_length=200, choices=BOM_CHOICES_NAME,
                                 verbose_name=u'名称')
     bom_sn = models.CharField(max_length=200, verbose_name=u'编码')
@@ -61,10 +68,20 @@ class Device(models.Model):
 # TODO auto create
     #device_type = models.CharField(max_length=200, verbose_name=u'型号')
     #device_name = models.CharField(max_length=200, verbose_name=u'名称')
+    DEVICE_CHOICES_STATE = (
+            ('store', u'库存'),
+            ('inuse', u'使用中'),
+            )
+    device_status = models.CharField(max_length=200,verbose_name=u'状态',
+                                choices=DEVICE_CHOICES_STATE,
+                                default='store')
+    device_sn = models.CharField(max_length=200, verbose_name=u'编码',
+                                blank=True)
     device_date = models.CharField(max_length=200, verbose_name=u'日期',
                                 default=time.strftime('%Y-%m-%d'))
-    device_user = models.OneToOneField(Customer, verbose_name=u'用户')
-    device_boms = models.ManyToManyField(Bom)
+    device_user = models.OneToOneField(Customer, verbose_name=u'用户',
+                                null=True)
+    device_boms = models.ManyToManyField(Bom, verbose_name=u'配件')
 
 
 
