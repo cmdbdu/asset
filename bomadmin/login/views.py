@@ -1,3 +1,12 @@
-from django.shortcuts import render
+#coding:utf-8
 
-# Create your views here.
+
+from django.shortcuts import render
+from django.contrib.auth import logout
+from django.shortcuts import redirect
+
+def logout_views(request):
+    logout(request)
+    return redirect('/accounts/login')
+
+
