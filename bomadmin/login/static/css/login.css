@@ -1,0 +1,19 @@
+body {
+  background:url(../img/background.jpg);
+}
+.opacity {
+  width:1600px;
+  height:1000px;
+  background-color:#000000;
+  opacity:0.8;
+  -moz-opacity:0.8;
+  filter:alpha(opacity=50);
+}
+#login {
+  z-index:20;
+  height:200px;
+  width:450px;
+  margin:0 auto;
+  box-shadow: 0 11px 75px #888888;
+}
+
