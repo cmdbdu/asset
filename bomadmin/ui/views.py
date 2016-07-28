@@ -6,7 +6,9 @@ from forms import CustomerForm, BomForm, DeviceForm
 from models import Bom, Device
 
 from utils.django_values_list_count import count_list
+from django.contrib.auth.decorators import login_required
 
+@login_required
 def index(request, template):
     devices = Device.objects.all()
 
@@ -50,6 +52,7 @@ def index(request, template):
                                                'devices':devices})
 
 
+@login_required
 def stock(request, template):
     boms_count = count_list(list(Bom.objects.values_list('bom_name','bom_status')))
     return TemplateResponse(request, template, {'boms_count':boms_count})
