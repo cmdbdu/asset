@@ -16,7 +16,7 @@ body {
   z-index:20;
   height:200px;
   width:450px;
-  margin:0 auto;
+  margin:-100px 0 0 -150px;
   box-shadow: 0 11px 75px #888888;
 }
 .loginform {
