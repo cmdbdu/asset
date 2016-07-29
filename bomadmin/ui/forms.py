@@ -14,7 +14,7 @@ class BomForm(forms.ModelForm):
 
     class Meta:
         model = Bom
-        exclude = ['bom_date']
+        exclude = ['bom_date', 'bom_status']
 
 
 class DeviceForm(forms.Form):

@@ -12,17 +12,20 @@ from django.contrib.auth.decorators import login_required
 def index(request, template):
     devices = Device.objects.all()
 
+    import pdb
     if request.method == "POST":
         try:
-            name = request.POST.getlist('bom_sn')
-            if len(list(set(name))) == 1 and len(list(set(name)))[0] != '':
+            name = request.POST.getlist('bom_sns')
+            if len(list(set(name))) == 1 and list(set(name))[0] == '':
                 #全为空
+                print "空"
                 pass
             else:
                 new_device = Device()
                 for i in name:
                     try:
                         bom = Bom.objects.get(bom_sn=i)
+                        print bom
                         if bom.bom_name == "ser":
                             new_device.device_sn = bom.bom_sn
                         new_device.save()

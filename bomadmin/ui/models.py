@@ -42,7 +42,7 @@ class Bom(models.Model):
                                 default='store')
     bom_name = models.CharField(max_length=200, choices=BOM_CHOICES_NAME,
                                 verbose_name=u'名称')
-    bom_sn = models.CharField(max_length=200, verbose_name=u'编码')
+    bom_sn = models.CharField(max_length=200, verbose_name=u'编码', unique=True)
     bom_date = models.CharField(max_length=200, verbose_name=u'时间',
                                 default=time.strftime('%Y-%m-%d'))
     #bom_pri = models.CharField(max_length=200, verbose_name=u'价格')
