@@ -22,10 +22,10 @@
                     {{ items.device_sn }}
                   </td>
                   <td>
-                    {{ items.device_boms.all }}
+                    {{ items.device_status }}
                   </td>
                   <td>
-                    <span class="glyphicon glyphicon-wrench"></span>
+                    <a href='{{items.id}}'><span class="glyphicon glyphicon-wrench"></span></a>
                   </td>
                 </tr>
             {% endfor %}

@@ -5,4 +5,8 @@ $(document).ready(function(){
       input
       )
   });
+  $('#add_asset').on('hidden.bs.modal', function (e) {
+    console.log('aa');
+    alert('close');
+  })
 });
