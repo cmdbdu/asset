@@ -1,12 +1,17 @@
 # coding:utf-8
 from django.shortcuts import render
 from django.template.response import TemplateResponse
+from django.core.urlresolvers import reverse
+from django.http import HttpResponse, HttpResponseRedirect
 
 from forms import CustomerForm, BomForm, DeviceForm
 from models import Bom, Device, Customer
 
 from utils.django_values_list_count import count_list
 from django.contrib.auth.decorators import login_required
+
+def get_handler_404_or_500(request):
+    return HttpResponseRedirect(reverse('index'))
 
 @login_required
 def index(request, template):
@@ -56,8 +61,6 @@ def index(request, template):
         if bom_form.is_valid():
             bom_form.save()
         else:
-            print bom_form.non_field_errors()
-            print bom_form.errors
             err_msg = u"添加失败"
     else:
         cus_form = CustomerForm()
@@ -72,7 +75,11 @@ def index(request, template):
 @login_required
 def stock(request, template):
     boms_count = count_list(list(Bom.objects.values_list('bom_name','bom_status')))
-    return TemplateResponse(request, template, {'boms_count':boms_count})
+    cus_form = CustomerForm()
+    bom_form = BomForm()
+    return TemplateResponse(request, template, {'boms_count':boms_count,
+                                                'bom_form':bom_form,
+                                                'cus_form':cus_form})
 
 @login_required
 def device(request, device_id, template):
