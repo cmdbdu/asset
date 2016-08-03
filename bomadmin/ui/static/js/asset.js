@@ -5,8 +5,11 @@ $(document).ready(function(){
       input
       )
   });
-  $('#add_asset').on('hidden.bs.modal', function (e) {
-    console.log('aa');
-    alert('close');
-  })
+
+$('#add_asset,#add_device,#add_user').on('hide.bs.modal',function (){
+  console.log('close');
+})
+if($('#add_asset').find('.errorlist').length === 0){console.log('a')}else{$('#add_asset').modal('show')}
+if($('#add_user').find('.errorlist').length === 0){console.log('a')}else{$('#add_user').modal('show')}
 });
+// asset.js

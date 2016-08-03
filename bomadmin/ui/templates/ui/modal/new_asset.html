@@ -6,18 +6,25 @@
         <h3 class="modal-title" id="myModalLabel">添加固资</h3>
       </div>
       <div class="modal-body">
-        <form role="form" action="/ui/" method="post">{% csrf_token %}
+        <form id="add_asset_form" role="form" action="/ui/" method="post">{% csrf_token %}
           {% for field in bom_form %}
             <div class="form-group">
               <label class="col-sm-3 control-label">{{ field.label_tag|striptags }}</label>
+              {% if field.errors %}
+              <div class="clo-sm-10">
+                <span>{{ field.errors }}</span>
+                {{field}}
+              </div>
+              {% else %}
               <div class="clo-sm-10">
                 {{field}}
               </div>
+              {% endif %}
             </div>
           {% endfor %}
           <div class="modal-footer">
             <button class="btn" data-dismiss="modal" aria-hidden="true">取消</button>
-            <button class="btn btn-primary" type="submit">添加</button>
+            <button name="subname" value="add_asset" class="btn btn-primary" type="submit">添加</button>
           </div>
         </form>
       </div>

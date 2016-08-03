@@ -16,56 +16,62 @@ def get_handler_404_or_500(request):
 @login_required
 def index(request, template):
     devices = Device.objects.all()
+    cus_form = CustomerForm()
+    bom_form = BomForm()
+    device_form = DeviceForm()
 
     if request.method == "POST":
-        try:
-            name = request.POST.getlist('bom_sns')
-            if len(list(set(name))) == 1 and list(set(name))[0] == '':
-                #全为空
+        if request.POST['subname'] == 'add_device':
+            try:
+                name = request.POST.getlist('bom_sns')
+                if len(list(set(name))) == 1 and list(set(name))[0] == '':
+                    #全为空
+                    pass
+                else:
+                    new_device = Device()
+                    dev = {}
+                    for i in name:
+                        try:
+                            bom = Bom.objects.get(bom_sn=i)
+                            if bom.bom_name == u'ser' and dev.has_key(u'ser'):
+                                print 'too many server'
+                            else:
+                                dev[bom.bom_name] = (bom, bom.bom_sn)
+
+                        except Exception,e:
+                            print e
+                    if dev.has_key('ser'):
+                        new_device.device_sn = dev['ser'][1]
+                        bom = Bom.objects.get(bom_sn=dev['ser'][1])
+                        bom.bom_status = 'inuse'
+                        bom.save()
+                        new_device.save()
+                        for key in dev:
+                            if key != 'ser':
+                                new_device.device_boms.add(dev[key][0])
+                                dev[key][0].bom_status = 'inuse'
+                                dev[key][0].save()
+
+                        new_device.save()
+            except:
                 pass
+        elif request.POST['subname'] == 'add_cus':
+            cus_form = CustomerForm(request.POST)
+            if cus_form.is_valid():
+                cus_form.save()
             else:
-                new_device = Device()
-                dev = {}
-                for i in name:
-                    try:
-                        bom = Bom.objects.get(bom_sn=i)
-                        if bom.bom_name == u'ser' and dev.has_key(u'ser'):
-                            print 'too many server'
-                        else:
-                            dev[bom.bom_name] = (bom, bom.bom_sn)
-
-                    except Exception,e:
-                        print e
-                if dev.has_key('ser'):
-                    new_device.device_sn = dev['ser'][1]
-                    bom = Bom.objects.get(bom_sn=dev['ser'][1])
-                    bom.bom_status = 'inuse'
-                    bom.save()
-                    new_device.save()
-                    for key in dev:
-                        if key != 'ser':
-                            new_device.device_boms.add(dev[key][0])
-                            dev[key][0].bom_status = 'inuse'
-                            dev[key][0].save()
-
-                    new_device.save()
-        except:
-            pass
-
-        cus_form = CustomerForm(request.POST)
-        bom_form = BomForm(request.POST)
-        if cus_form.is_valid():
-            cus_form.save()
+                err_msg = 'error'
+                #return TemplateResponse(request, template,{'cus_form':cus_form,
+                #                                            'devices':devices})
         else:
-            err_msg = u"添加失败"
-        if bom_form.is_valid():
-            bom_form.save()
-        else:
-            err_msg = u"添加失败"
-    else:
-        cus_form = CustomerForm()
-        bom_form = BomForm()
-        device_form = DeviceForm()
+            bom_form = BomForm(request.POST)
+            if bom_form.is_valid():
+                bom_form.save()
+            else:
+                err_msg = 'error'
+                #return TemplateResponse(request, template,{'cus_form':cus_form,
+                #                                            'bom_form':bom_form,
+                #                                            'devices':devices})
 
     return TemplateResponse(request, template,{'cus_form':cus_form,
                                                'bom_form':bom_form,
