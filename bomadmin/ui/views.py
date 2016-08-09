@@ -2,6 +2,7 @@
 from django.shortcuts import render
 from django.template.response import TemplateResponse
 from django.core.urlresolvers import reverse
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.http import HttpResponse, HttpResponseRedirect
 
 from forms import CustomerForm, BomForm, DeviceForm
@@ -34,11 +35,13 @@ def index(request, template):
                         try:
                             bom = Bom.objects.get(bom_sn=i)
                             if bom.bom_name == u'ser' and dev.has_key(u'ser'):
+                                pass
                                 print 'too many server'
                             else:
                                 dev[bom.bom_name] = (bom, bom.bom_sn)
 
                         except Exception,e:
+                            pass
                             print e
                     if dev.has_key('ser'):
                         new_device.device_sn = dev['ser'][1]
@@ -53,29 +56,38 @@ def index(request, template):
                                 dev[key][0].save()
 
                         new_device.save()
+                        return HttpResponseRedirect(reverse('index'))
             except:
                 pass
         elif request.POST['subname'] == 'add_cus':
             cus_form = CustomerForm(request.POST)
             if cus_form.is_valid():
                 cus_form.save()
+                return HttpResponseRedirect(reverse('index'))
             else:
                 err_msg = 'error'
-                #return TemplateResponse(request, template,{'cus_form':cus_form,
-                #                                            'devices':devices})
         else:
             bom_form = BomForm(request.POST)
             if bom_form.is_valid():
                 bom_form.save()
+                return HttpResponseRedirect(reverse('index'))
             else:
                 err_msg = 'error'
-                #return TemplateResponse(request, template,{'cus_form':cus_form,
-                #                                            'bom_form':bom_form,
-                #                                            'devices':devices})
+
+    page = request.GET.get('page', '')
+    paginator = Paginator(devices,'10')
+    try:
+        contacts = paginator.page(page)
+    except PageNotAnInteger:
+        contacts = paginator.page('1')
+    except EmptyPage:
+        contacts = paginator.page(paginator.num_pages)
 
     return TemplateResponse(request, template,{'cus_form':cus_form,
                                                'bom_form':bom_form,
-                                               'devices':devices})
+                                               'devices':devices,
+                                               'contacts':contacts,
+                                               'pages':paginator})
 
 
 @login_required
