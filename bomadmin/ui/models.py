@@ -79,7 +79,7 @@ class Device(models.Model):
                                 blank=True)
     device_date = models.CharField(max_length=200, verbose_name=u'日期',
                                 default=time.strftime('%Y-%m-%d'))
-    device_user = models.OneToOneField(Customer, verbose_name=u'用户',
+    device_user = models.ForeignKey(Customer, verbose_name=u'用户',
                                 null=True)
     device_boms = models.ManyToManyField(Bom, verbose_name=u'配件')
 
@@ -97,7 +97,6 @@ class DeviceAdmin(admin.ModelAdmin):
                     )
     def device_sn(self, obj):
         for a in obj.device_boms.all():
-            print a.bom_name
             if a.bom_name == 'ser':
                 return a.bom_sn
 

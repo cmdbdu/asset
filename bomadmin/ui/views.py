@@ -36,13 +36,11 @@ def index(request, template):
                             bom = Bom.objects.get(bom_sn=i)
                             if bom.bom_name == u'ser' and dev.has_key(u'ser'):
                                 pass
-                                print 'too many server'
                             else:
                                 dev[bom.bom_name] = (bom, bom.bom_sn)
 
                         except Exception,e:
                             pass
-                            print e
                     if dev.has_key('ser'):
                         new_device.device_sn = dev['ser'][1]
                         bom = Bom.objects.get(bom_sn=dev['ser'][1])
@@ -102,17 +100,18 @@ def stock(request, template):
 @login_required
 def device(request, device_id, template):
     device = Device.objects.get(id=device_id)
-    print dir(device)
-    print device.device_user
     users = Customer.objects.all()
     if request.method == "GET":
         return TemplateResponse(request, template, {'device':device,
                                                     'users':users})
     else:
         cus_id = request.POST.get('cus_id')
-        device.device_user = Customer.objects.get(id=cus_id)
-        device.device_status = 'inuse'
-        device.save()
+        try:
+            device.device_user = Customer.objects.get(id=cus_id)
+            device.device_status = 'inuse'
+            device.save()
+        except Exception,e:
+            print e
         return TemplateResponse(request, template, {'device':device,
                                                     'users':users})
 

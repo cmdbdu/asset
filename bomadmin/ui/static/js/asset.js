@@ -9,7 +9,10 @@ $(document).ready(function(){
 $('#add_asset,#add_device,#add_user').on('hide.bs.modal',function (){
   console.log('close');
 })
-if($('#add_asset').find('.errorlist').length === 0){console.log('a')}else{$('#add_asset').modal('show')}
-if($('#add_user').find('.errorlist').length === 0){console.log('a')}else{$('#add_user').modal('show')}
+$('a[name="export"]').on('click',function(){
+  alert(2)
+})
+if($('#add_asset').find('.errorlist').length != 0){$('#add_asset').modal('show')}
+if($('#add_user').find('.errorlist').length != 0){$('#add_user').modal('show')}
 });
 // asset.js

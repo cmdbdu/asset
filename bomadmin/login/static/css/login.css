@@ -1,9 +1,9 @@
 body {
-  background:url(../img/background.jpg);
+  background: #000000;/*url(../img/background.jpg);*/
 }
 .opacity {
   width:1600px;
-  height:1000px;
+  height:100%;
   background-color:#000000;
   opacity:0.8;
   -moz-opacity:0.8;
