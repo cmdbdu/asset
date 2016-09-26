@@ -13,4 +13,5 @@ urlpatterns = patterns('',
     url(r'', include("login.urls")),
     url(r'^admin', include(admin.site.urls)),
     url(r'^ui', include("ui.urls")),
+    url(r'^assets', include("assets.urls")),
 )

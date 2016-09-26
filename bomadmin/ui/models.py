@@ -3,8 +3,6 @@ import time
 
 from django.db import models
 from django.contrib import admin
-from django.utils.html import format_html_join
-from django.utils.safestring import mark_safe
 
 class Customer(models.Model):
     cus_name = models.CharField(max_length=200, verbose_name=u'客户名称')

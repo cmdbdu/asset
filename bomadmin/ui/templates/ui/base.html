@@ -31,13 +31,15 @@
                <li>
                  <a href="/ui">系统首页</a>
                </li>
+
+              {%if user.get_profile.parts_edit %}
                <li>
                  <a href="/ui/stock">库存</a>
                </li>
                <li class="dropdown ">
                  <a class="dropdown " role="button" href="#" data-toggle="dropdown">新建<b class="caret"></b></a>
                    <ul class="dropdown-menu " role="menu" aria-labelledby="dropdownMenu1">
-                     <li class="dropdown " role="presentation"><a  href="#" data-toggle="modal" data-target="#add_asset">添加配件</a></li>
+                     <li class="dropdown " role="presentation"><a  href="#" data-toggle="modal" data-target="#add_part">添加配件</a></li>
                      <li class="dropdown " role="presentation"><a  href="#" data-toggle="modal" data-target="#add_device">添加设备</a></li>
                      <li class="dropdown " role="presentation"><a  href="#" data-toggle="modal" data-target="#add_user">添加用户</a></li>
                    </ul>
@@ -45,6 +47,10 @@
                <li>
                  <a name="export">导出</a>
                </li>
+              {% endif %}
+              {% if user.get_profile.asset_edit %}
+                <li class="dropdown " role="presentation"><a  href="#" data-toggle="modal" data-target="#add_asset">添加固资</a></li>
+              {% endif %}
                <!--
                <li>
                  <a href="#">使用手册</a>

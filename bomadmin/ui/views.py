@@ -8,6 +8,9 @@ from django.http import HttpResponse, HttpResponseRedirect
 from forms import CustomerForm, BomForm, DeviceForm
 from models import Bom, Device, Customer
 
+from assets.models import Assets
+from assets.forms import AssetsFrom
+
 from utils.django_values_list_count import count_list
 from django.contrib.auth.decorators import login_required
 
@@ -16,10 +19,24 @@ def get_handler_404_or_500(request):
 
 @login_required
 def index(request, template):
+    user = request.user
     devices = Device.objects.all()
+    assets = Assets.objects.all()
+    pag_list = []
+
+    import pdb
+    if user.get_profile().asset_edit:
+        pag_list += assets
+        if user.get_profile().parts_edit:
+            pag_list += devices
+
+    elif user.get_profile().parts_edit:
+        pag_list += devices
+
     cus_form = CustomerForm()
     bom_form = BomForm()
     device_form = DeviceForm()
+    asset_form = AssetsFrom()
 
     if request.method == "POST":
         if request.POST['subname'] == 'add_device':
@@ -64,6 +81,11 @@ def index(request, template):
                 return HttpResponseRedirect(reverse('index'))
             else:
                 err_msg = 'error'
+        elif request.POST['subname'] == 'add_asset':
+            asset_form = AssetsFrom(request.POST)
+            if asset_form.is_valid():
+                asset_form.save()
+                return HttpResponseRedirect(reverse('index'))
         else:
             bom_form = BomForm(request.POST)
             if bom_form.is_valid():
@@ -73,7 +95,7 @@ def index(request, template):
                 err_msg = 'error'
 
     page = request.GET.get('page', '')
-    paginator = Paginator(devices,'10')
+    paginator = Paginator(pag_list,'10')
     try:
         contacts = paginator.page(page)
     except PageNotAnInteger:
@@ -84,6 +106,7 @@ def index(request, template):
     return TemplateResponse(request, template,{'cus_form':cus_form,
                                                'bom_form':bom_form,
                                                'devices':devices,
+                                               'asset_form':asset_form,
                                                'contacts':contacts,
                                                'pages':paginator})
 
@@ -115,3 +138,12 @@ def device(request, device_id, template):
         return TemplateResponse(request, template, {'device':device,
                                                     'users':users})
 
+@login_required
+def asset(request, asset_id, template):
+    asset = Assets.objects.get(id=asset_id)
+    print dir(asset)
+    users = Customer.objects.all()
+    if request.method == 'GET':
+        return TemplateResponse(request, template, {'asset':asset,
+                                                    'users':users}
+                                                    )

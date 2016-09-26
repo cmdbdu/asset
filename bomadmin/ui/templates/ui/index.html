@@ -10,6 +10,7 @@
           {% block content-header %}
           <th>编码</th>
           <th>状态</th>
+          <th>分类</th>
           <th>操作</th>
           {% endblock %}
         </tr>
@@ -19,13 +20,28 @@
             {% for items in contacts %}
                 <tr>
                   <td>
-                    {{ items.device_sn }}
+                    {% if items.device_sn %}
+                      {{ items.device_sn }}
+                    {% else %}
+                      {{ items.asset_sn }}
+                    {% endif %}
                   </td>
                   <td>
-                    {{ items.device_status }}
+                    {% if items.device_status %}
+                      {{ items.device_status }}
+                    {% else %}
+                      {{ items.asset_status }}
+                    {% endif %}
                   </td>
                   <td>
-                    <a href='ui/{{items.id}}'><span class="glyphicon glyphicon-wrench"></span></a>
+                    分类
+                  </td>
+                  <td>
+                    {% if items.asset_status %}
+                      <a href='ui/asset/{{items.id}}'><span class="glyphicon glyphicon-wrench"></span></a>
+                    {% else %}
+                      <a href='ui/{{items.id}}'><span class="glyphicon glyphicon-wrench"></span></a>
+                    {% endif %}
                   </td>
                 </tr>
             {% endfor %}

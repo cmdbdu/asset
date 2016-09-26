@@ -7,7 +7,7 @@
       </div>
       <div class="modal-body">
         <form id="add_asset_form" role="form" action="/ui" method="post">{% csrf_token %}
-          {% for field in bom_form %}
+          {% for field in asset_form %}
             <div class="form-group">
               <label class="col-sm-3 control-label">{{ field.label_tag|striptags }}</label>
               {% if field.errors %}

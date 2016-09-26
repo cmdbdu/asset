@@ -8,7 +8,6 @@ $(document).ready(function(){
     var pid = $(this).data('pid')
     var prid = $(this).data('prid')
     var data = {'bid':bid,'pid':pid, 'prid':prid}
-    console.log(data)
     window.location.href="/business/bind_property/?bid="+bid+"&pid="+pid+"&prid="+prid 
     });
   $(".a_bind_property").on('click',function(){
@@ -37,7 +36,6 @@ $(document).ready(function(){
                 'start_time':start_time,
                 'end_time':end_time,
                 'remark':remark}
-    console.log(data)
     $.ajax({
       type:'GET',
       url:url,
