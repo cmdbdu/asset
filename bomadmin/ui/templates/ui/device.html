@@ -1,0 +1,43 @@
+{% extends 'ui/base.html' %}
+{% block title %}
+    设备详细
+{% endblock %}
+{% block contents %}
+    {%  block search_business %}
+    {% endblock %}
+    {% block business_show %}
+    <div class="container">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+           <th>设备明细</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">用户</th>
+            <td>
+            {% if  device.device_user %}
+                {{ device.device_user }}
+            {% else %}
+            <a  href="#" data-toggle="modal" data-target="#bind_user"><span class="glyphicon  glyphicon-plus" aria-hidden="true"></span></a>
+              {% endif %}
+            </td>
+          </tr>
+          <tr>
+            <th scope="row">SN</th>
+            <td>{{ device.device_sn }}</td>
+          </tr>
+          <tr>
+            <th scope="row">状态</th>
+            <td>{{ device.device_status }}</td>
+          </tr>
+          <tr>
+            <th scope="row">配件</th>
+            <td>{{ device.device_boms.all }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    {% endblock %}
+{% endblock %}

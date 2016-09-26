@@ -1,0 +1,49 @@
+{% extends 'ui/base.html' %}
+{% block title %}
+    设备详细
+{% endblock %}
+{% block contents %}
+    {%  block search_business %}
+    {% endblock %}
+    {% block business_show %}
+    <div class="container">
+      <table id="asset" class="table table-striped">
+        <thead>
+          <tr>
+           <th>固资明细</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th class="col-sm-6" scope="row">id</th>
+            <td>{{asset.id}}</td>
+          </tr>
+          <tr>
+            <th scope="row">种类</th>
+            <td>{{asset.asset_type}}</td>
+          </tr>
+          <tr>
+            <th scope="row">型号</th>
+            <td>{{asset.asset_model}}</td>
+          </tr>
+          <tr>
+            <th scope="row">厂家</th>
+            <td>{{asset.asset_factory}}</td>
+          </tr>
+          <tr>
+            <th scope="row">渠道</th>
+            <td>{{asset.asset_from}}</td>
+          </tr>
+          <tr>
+            <th scope="row">流向</th>
+            <td>{{asset.asset_to}}</td>
+          </tr>
+          <tr>
+            <th scope="row">状态</th>
+            <td>{{asset.asset_status}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    {% endblock %}
+{% endblock %}
