@@ -7,4 +7,5 @@ urlpatterns = patterns('ui.views',
     url(r'^/stock', 'stock', {'template':'ui/stock.html'}, name='stock'),
     url(r'^/(\d+)', 'device', {'template':'ui/device.html'}, name='device'),
     url(r'^/asset/(\d+)', 'asset', {'template':'ui/asset.html'}, name='asset'),
+    url(r'^/asset/edit', 'edit', name='edit'),
 )

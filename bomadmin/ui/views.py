@@ -13,6 +13,7 @@ from assets.forms import AssetsFrom
 
 from utils.django_values_list_count import count_list
 from django.contrib.auth.decorators import login_required
+from django.views.decorators.csrf import csrf_exempt
 
 def get_handler_404_or_500(request):
     return HttpResponseRedirect(reverse('index'))
@@ -146,4 +147,18 @@ def asset(request, asset_id, template):
     if request.method == 'GET':
         return TemplateResponse(request, template, {'asset':asset,
                                                     'users':users}
-                                                    )
+                                )
+
+@login_required
+@csrf_exempt
+def edit(request):
+    value = request.POST['value']
+    asset_id = request.POST['asset_id']
+    asset = Assets.objects.get(id=asset_id)
+    asset.asset_to = value
+    if value:
+        asset.asset_status='inuse'
+    else:
+        asset.asset_status='store'
+    asset.save()
+    return HttpResponse({'status':'OK'})
