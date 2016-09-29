@@ -87,3 +87,20 @@ SESSION_COOKIE_AGE = 60*30
 LOGIN_REDIRECT_URL = '/ui'
 APPEND_SLASH = False
 AUTH_PROFILE_MODULE = 'login.UserProfile'
+LOGGING = {
+        'version': 1,
+        'disable_existing_loggers': False,
+        'handlers': {
+            'console':{
+                'class':'logging.StreamHandler',
+                }
+            },
+        'loggers': {
+            'django': {
+                'handlers': ['console'],
+                'level': 'DEBUG',
+                'propagate': True,
+                },
+            },
+        }
+
