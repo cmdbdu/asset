@@ -8,7 +8,7 @@
       <script src="{{ STATIC_URL }}js/jquery-1.9.1.js"></script>
       <script src="{{ STATIC_URL }}bootstrap/js/bootstrap.min.js"></script>
       <script src="{{ STATIC_URL }}My97DatePicker/WdatePicker.js"></script>
-      <script src="{{ STATIC_URL }}js/asset.js"></script>
+      <script src="{{ STATIC_URL }}js/add_dev.js"></script>
       <script src="{{ STATIC_URL }}js/echarts.js"></script>
       <title>{% block title %}{% endblock %}</title>
     </head>
@@ -128,6 +128,7 @@
         </div>
       {% endblock %}
       {% include 'ui/modal/new_asset.html' %}
+      {% include 'ui/modal/new_part.html' %}
       {% include 'ui/modal/new_device.html' %}
       {% include 'ui/modal/new_user.html' %}
       {% include 'ui/modal/bind_user.html' %}
@@ -135,6 +136,7 @@
       {% include 'ui/modal/new_project.html' %}
       {% include 'ui/modal/delay.html' %}
       {% include 'ui/modal/add_product.html'%}-->
+      <script src="{{ STATIC_URL }}js/asset.js"></script>
     </body>
   {% endblock %}
 </html>
