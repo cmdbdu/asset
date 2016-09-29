@@ -12,8 +12,8 @@
               <label class="col-sm-3 control-label">{{ field.label_tag|striptags }}</label>
               {% if field.errors %}
               <div class="clo-sm-10">
-                <span>{{ field.errors }}</span>
                 {{field}}
+                <span style="float:right">{{ field.errors }}</span>
               </div>
               {% else %}
               <div class="clo-sm-10">
