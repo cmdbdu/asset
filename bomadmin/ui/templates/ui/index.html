@@ -19,6 +19,7 @@
         {% block content-body %}
             {% for items in contacts %}
                 <tr>
+                  </td>
                   <td>
                     {% if items.device_sn %}
                       {{ items.device_sn }}
@@ -34,7 +35,11 @@
                     {% endif %}
                   </td>
                   <td>
-                    分类
+                    {% if items.asset_status %}
+                      固资
+                    {% else %}
+                      配件
+                    {% endif %}
                   </td>
                   <td>
                     {% if items.asset_status %}
