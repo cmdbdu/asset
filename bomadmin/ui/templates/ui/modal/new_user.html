@@ -6,14 +6,14 @@
         <h3 class="modal-title" id="myModalLabel">新建用户</h3>
       </div>
       <div class="modal-body">
-        <form role="form" action="/ui/" method="post">{% csrf_token %}
+        <form role="form" action="/ui" method="post">{% csrf_token %}
           {% for field in cus_form %}
             <div class="form-group">
               <label class="col-sm-3 control-label">{{field.label_tag|striptags}}</label>
               {% if field.errors %}
               <div class="clo-sm-10">
-                <span>{{ field.errors }}</span>
                 {{field}}
+                <span style="float:right;">{{ field.errors }}</span>
               </div>
               {% else %}
               <div class="clo-sm-10">
