@@ -1,27 +1,23 @@
-$(document).ready(function() {
-  $('.glyphicon').click(function(e) {
-    var input = $('#add_device .form-group:last').clone().val('')
-    $("#add_device .form-group:last").after(
-      input
-    )
-    $('#asset td').dblclick(function(){
-      alert('a')
-    })
-    $('#asset td').on("click", function(){
-      alert('d')
-    })
-  });
+$('.asset-to').dblclick(function(e) {
+  var value = e.target.innerText
+  e.target.innerHTML = '<input class="asset-input" onblur="sub(event)" style="border:0px;" type="text" value=' + value + '>'
+})
 
-  $('#add_asset,#add_device,#add_user').on('hide.bs.modal', function() {})
-  $('a[name="export"]').on('click', function() {
-    alert(2)
+function sub(event) {
+  var value = event.target.value;
+  var obj = event.srcElement ? event.srcElement : event.target;
+  var asset_id = location.href.split('/').pop();
+  console.log(asset_id);
+  var $obj = $(obj)
+  $.ajax({
+    url: 'edit',
+    type: 'POST',
+    data: {
+      'value': value,
+      'asset_id': asset_id,
+    },
+    success: function(result) {
+      location.reload()
+    }
   })
-  if ($('#add_asset').find('.errorlist').length != 0) {
-    $('#add_asset').modal('show')
-  }
-  if ($('#add_user').find('.errorlist').length != 0) {
-    $('#add_user').modal('show')
-  }
-});
-
-// asset.js
+}
