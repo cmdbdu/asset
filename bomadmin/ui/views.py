@@ -11,7 +11,7 @@ from models import Bom, Device, Customer
 from assets.models import Assets
 from assets.forms import AssetsFrom
 
-from utils.django_values_list_count import count_list
+from utils.django_values_list_to_json import count_list
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_exempt
 
@@ -114,7 +114,11 @@ def index(request, template):
 
 @login_required
 def stock(request, template):
-    boms_count = count_list(list(Bom.objects.values_list('bom_name','bom_status')))
+    boms_count = count_list(list(Bom.objects.values_list('bom_name',
+                                                        'bom_status',
+                                                        'bom_sn')
+                                )
+                            )
     cus_form = CustomerForm()
     bom_form = BomForm()
     return TemplateResponse(request, template, {'boms_count':boms_count,
@@ -135,14 +139,13 @@ def device(request, device_id, template):
             device.device_status = 'inuse'
             device.save()
         except Exception,e:
-            print e
+            pass
         return TemplateResponse(request, template, {'device':device,
                                                     'users':users})
 
 @login_required
 def asset(request, asset_id, template):
     asset = Assets.objects.get(id=asset_id)
-    print dir(asset)
     users = Customer.objects.all()
     if request.method == 'GET':
         return TemplateResponse(request, template, {'asset':asset,

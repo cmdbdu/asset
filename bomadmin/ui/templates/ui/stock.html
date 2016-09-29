@@ -1,4 +1,5 @@
 {% extends 'ui/base.html' %}
+{% load re_dict_len %}
 {% block title %}
     库存
 {% endblock %}
@@ -8,17 +9,23 @@
     {% block business_show %}
     <div class="container">
         <div id="stock" class="row">
+        <table class="table table-bordered">
         {% for key,values in boms_count.items %}
-          <div class="col-xs-6 col-md-3">
-            <h2>{{ key }}</h2>
-            {% for ky, va  in values.items %}
-            <div class="detail">
-              <p>{{ ky}}</p>
-              <p>{{ va }}</p>
-            </div>
-            {% endfor %}
-          </div>
+          {% for k,v in values.items%}
+        <tr>
+          <th class="col-sm-3"   >{{ key }}</th>
+              <td>
+                {{ k }}
+              </td>
+              <td>
+              {% for i in v %}
+                <span>{{i}}</span>
+              {% endfor %}
+              </td>
+        </tr>
+          {% endfor%}
         {% endfor %}
+        </table>
         </div>
     </div>
     {% endblock %}
