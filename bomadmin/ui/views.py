@@ -25,7 +25,6 @@ def index(request, template):
     assets = Assets.objects.all()
     pag_list = []
 
-    import pdb
     if user.get_profile().asset_edit:
         pag_list += assets
         if user.get_profile().parts_edit:
@@ -96,7 +95,7 @@ def index(request, template):
                 err_msg = 'error'
 
     page = request.GET.get('page', '')
-    paginator = Paginator(pag_list,'10')
+    paginator = Paginator(pag_list,'20')
     try:
         contacts = paginator.page(page)
     except PageNotAnInteger:
@@ -119,6 +118,14 @@ def stock(request, template):
                                                         'bom_sn')
                                 )
                             )
+    asset_count = count_list(list(Assets.objects.values_list('asset_type',
+                                                             'asset_status',
+                                                             'asset_sn',
+                                                             )
+                                 )
+                            )
+
+    boms_count.update(asset_count)
     cus_form = CustomerForm()
     bom_form = BomForm()
     return TemplateResponse(request, template, {'boms_count':boms_count,
